@@ -1,4 +1,4 @@
-# Spark操作DEMO  [![Travis](https://img.shields.io/badge/SparkDemo-v1.0-yellowgreen.svg)](https://github.com/huangyueranbbc/SparkDemo)  [![Travis](https://img.shields.io/badge/SparkDemo-v1.0-yellowgreen.svg)](http://spark.apache.org/docs/latest/api.html)  [![Travis](https://img.shields.io/badge/Apache-Spark-yellowgreen.svg)](http://spark.apache.org/)  [![Travis](https://img.shields.io/badge/Spark-ALS-blue.svg)](https://github.com/huangyueranbbc/Spark_ALS)  
+# Spark操作DEMO  [![Travis](https://img.shields.io/badge/SparkDemo-v1.0-yellowgreen.svg)](https://github.com/huangyueranbbc/SparkDemo)  [![Travis](https://img.shields.io/badge/Spark-API-green.svg)](http://spark.apache.org/docs/latest/api.html)  [![Travis](https://img.shields.io/badge/Apache-Spark-yellowgreen.svg)](http://spark.apache.org/)  [![Travis](https://img.shields.io/badge/Spark-ALS-blue.svg)](https://github.com/huangyueranbbc/Spark_ALS)  
 1.包含Spark所有的操作   
    a.包含官方的ml、mllib、streaming、sql等操作DEMO   
    b.包含所有常用算子的操作DEMO   
