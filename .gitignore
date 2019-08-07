@@ -1,1 +1,13 @@
-/bin/
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+target
+logs
+build
+
+# spark file
+.checkpoint*
+checkpoint*
+tmp
