@@ -34,7 +34,7 @@ public class Cartesian {
 		cartesian(sc);
 	}
 
-	static void cartesian(JavaSparkContext sc) {
+	private static void cartesian(JavaSparkContext sc) {
 	    List<String> names = Arrays.asList("张三", "李四", "王五");
 	    List<Integer> scores = Arrays.asList(60, 70, 80);
 

@@ -31,7 +31,7 @@ public class Distinct {
 		distinct(sc);
 	}
 
-	static void distinct(JavaSparkContext sc) {
+	private static void distinct(JavaSparkContext sc) {
 		List<String> datas = Arrays.asList("张三", "李四", "tom", "张三");
 
 		 /**

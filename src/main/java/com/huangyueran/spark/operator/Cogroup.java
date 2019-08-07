@@ -33,7 +33,7 @@ public class Cogroup {
 		cogroup(sc);
 	}
 
-	static void cogroup(JavaSparkContext sc) {
+	private static void cogroup(JavaSparkContext sc) {
 		List<Tuple2<Integer, String>> datas1 = new ArrayList<>();
 		datas1.add(new Tuple2<>(1, "苹果"));
 		datas1.add(new Tuple2<>(2, "梨"));

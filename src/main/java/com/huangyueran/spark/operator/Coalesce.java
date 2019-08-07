@@ -31,7 +31,7 @@ public class Coalesce {
 		coalesce(sc);
 	}
 
-	static void coalesce(JavaSparkContext sc) {
+	private static void coalesce(JavaSparkContext sc) {
 		List<String> datas = Arrays.asList("hi", "hello", "how", "are", "you");
 		JavaRDD<String> datasRDD = sc.parallelize(datas, 4);
 		System.out.println("RDD的分区数: " + datasRDD.partitions().size());

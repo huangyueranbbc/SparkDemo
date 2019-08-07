@@ -39,7 +39,7 @@ public class AggregateByKey {
 		aggregateByKey(sc);
 	}
 
-	static void aggregateByKey(JavaSparkContext sc) {
+	private static void aggregateByKey(JavaSparkContext sc) {
 		List<Tuple2<Integer, Integer>> datas = new ArrayList<>();
 		datas.add(new Tuple2<>(1, 3));
 		datas.add(new Tuple2<>(1, 2));

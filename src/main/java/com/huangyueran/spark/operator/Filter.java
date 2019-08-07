@@ -32,7 +32,7 @@ public class Filter {
 		filter(sc);
 	}
 
-	static void filter(JavaSparkContext sc) {
+	private static void filter(JavaSparkContext sc) {
 		List<Integer> datas = Arrays.asList(1, 2, 3, 7, 4, 5, 8);
 
 		JavaRDD<Integer> rddData = sc.parallelize(datas);
