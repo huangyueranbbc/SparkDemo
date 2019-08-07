@@ -8,6 +8,7 @@ target/*
 logs
 logs/*
 build
+.settings
 
 # spark file
 .checkpoint*
