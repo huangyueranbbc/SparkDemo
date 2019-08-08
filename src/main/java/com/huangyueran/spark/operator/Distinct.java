@@ -20,7 +20,7 @@ public class Distinct {
 		 * SparkConf:第一步创建一个SparkConf，在这个对象里面可以设置允许模式Local Standalone yarn
 		 * AppName(可以在Web UI中看到) 还可以设置Spark运行时的资源要求
 		 */
-		SparkConf conf = new SparkConf().setAppName("Sample").setMaster("local");
+		SparkConf conf = new SparkConf().setAppName("Distinct").setMaster("local");
 
 		/**
 		 * 基于SparkConf的对象可以创建出来一个SparkContext Spark上下文

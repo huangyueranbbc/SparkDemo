@@ -41,7 +41,7 @@ public class Filter {
 				// v1 -> v1 >= 3
 				new Function<Integer, Boolean>() {
 					public Boolean call(Integer v) throws Exception {
-						// 去除>=4的数
+						// 过滤小于4的数
 						return v >= 4;
 					}
 				});
