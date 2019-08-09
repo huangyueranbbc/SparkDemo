@@ -1,5 +1,7 @@
 package com.hyr.spark.operator
 
+import com.huangyueran.spark.utils.Constant
+import com.hyr.spark.utils.SparkUtils
 import org.apache.spark.{SparkConf, SparkContext}
 
 /** *****************************************************************************
@@ -10,7 +12,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 object ReduceByKey {
 
   def reduceByKey(sparkContext: SparkContext): Unit = {
-    val rdd = sparkContext.textFile("data/resources/wc_data")
+    val rdd = sparkContext.textFile(Constant.LOCAL_FILE_PREX+"/data/resources/wc_data")
     rdd.flatMap(line => {
       line.split("\\s+")
     }).map((_, 1)).reduceByKey((pre, after) => {
@@ -22,8 +24,7 @@ object ReduceByKey {
 
 
   def main(args: Array[String]): Unit = {
-    val sparkConf = new SparkConf setAppName "ReduceByKey" setMaster "local"
-    val sparkContext = new SparkContext(sparkConf)
+    val sparkContext = SparkUtils.getLocalSparkContext(ReduceByKey.getClass)
 
     reduceByKey(sparkContext)
   }

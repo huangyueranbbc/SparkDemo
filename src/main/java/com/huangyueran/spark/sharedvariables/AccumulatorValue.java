@@ -3,6 +3,7 @@ package com.huangyueran.spark.sharedvariables;
 import java.util.Arrays;
 import java.util.List;
 
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.Accumulator;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
@@ -19,8 +20,7 @@ import org.apache.spark.broadcast.Broadcast;
 public class AccumulatorValue {
 
 	public static void main(String[] args) {
-		SparkConf conf = new SparkConf().setAppName("AccumulatorValue").setMaster("local");
-		JavaSparkContext sc = new JavaSparkContext(conf);
+		JavaSparkContext sc = SparkUtils.getLocalSparkContext(AccumulatorValue.class);
 
 		// 创建累加器
 		final Accumulator<Integer> accumulator = sc.accumulator(0, "My Accumulator");

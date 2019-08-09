@@ -1,5 +1,6 @@
 package com.huangyueran.spark.sql;
 
+import com.huangyueran.spark.utils.Constant;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -22,7 +23,7 @@ public class RDD2DataFrameReflectionDynamic {
         JavaSparkContext sc = new JavaSparkContext(conf);
         SQLContext sqlContext = new SQLContext(sc);
 
-        JavaRDD<String> lineRDD = sc.textFile("data/resources/people.txt");
+        JavaRDD<String> lineRDD = sc.textFile(Constant.LOCAL_FILE_PREX +"/data/resources/people.txt");
 
         JavaRDD<Person> personsRDD = lineRDD.map(new Function<String, Person>() {
 

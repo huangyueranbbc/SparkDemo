@@ -17,6 +17,7 @@
 
 package org.apache.spark.examples.ml;
 
+import com.huangyueran.spark.utils.Constant;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -87,7 +88,7 @@ public class JavaALSExample {
 
     // $example on$
     JavaRDD<Rating> ratingsRDD = spark
-      .read().textFile("data/mllib/als/sample_movielens_ratings.txt").javaRDD()
+      .read().textFile(Constant.LOCAL_FILE_PREX +"data/mllib/als/sample_movielens_ratings.txt").javaRDD()
       .map(new Function<String, Rating>() {
         public Rating call(String str) {
           return Rating.parseRating(str);

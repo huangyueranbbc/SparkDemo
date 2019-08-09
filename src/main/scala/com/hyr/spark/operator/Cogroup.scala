@@ -1,5 +1,6 @@
 package com.hyr.spark.operator
 
+import com.hyr.spark.utils.SparkUtils
 import org.apache.spark.{SparkConf, SparkContext}
 
 /** *****************************************************************************
@@ -28,8 +29,7 @@ object Cogroup {
   }
 
   def main(args: Array[String]): Unit = {
-    val sparkConf = new SparkConf setAppName "Cogroup" setMaster "local"
-    val sparkContext = new SparkContext(sparkConf)
+    val sparkContext = SparkUtils.getLocalSparkContext(Cogroup.getClass)
     cogroup(sparkContext)
   }
 

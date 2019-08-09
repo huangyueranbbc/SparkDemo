@@ -20,7 +20,7 @@ public class LoadSave {
 		DataFrameReader dataFrameReader = sqlContext.read();
 
 		// parquet 是本地数据存储的格式
-		Dataset<Row> dataset = dataFrameReader.load("data/resources/users.parquet");
+		Dataset<Row> dataset = dataFrameReader.load("/data/resources/users.parquet");
 
 		dataset.printSchema();
 		dataset.show();

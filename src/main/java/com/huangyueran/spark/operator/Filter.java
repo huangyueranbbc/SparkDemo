@@ -1,12 +1,13 @@
 package com.huangyueran.spark.operator;
-import java.util.Arrays;
-import java.util.List;
 
-import org.apache.spark.SparkConf;
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.VoidFunction;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @category 对元素进行过滤，对每个元素应用f函数，返回值为true的元素在RDD中保留，返回为false的将过滤掉
@@ -16,18 +17,7 @@ import org.apache.spark.api.java.function.VoidFunction;
 public class Filter {
 
 	public static void main(String[] args) {
-		/**
-		 * SparkConf:第一步创建一个SparkConf，在这个对象里面可以设置允许模式Local Standalone yarn
-		 * AppName(可以在Web UI中看到) 还可以设置Spark运行时的资源要求
-		 */
-		SparkConf conf = new SparkConf().setAppName("Filter").setMaster("local");
-		// SparkConf conf = new SparkConf().setAppName("JoinOperator");
-
-		/**
-		 * 基于SparkConf的对象可以创建出来一个SparkContext Spark上下文
-		 * SparkContext是通往集群的唯一通道，SparkContext在创建的时候还会创建任务调度器
-		 */
-		JavaSparkContext sc = new JavaSparkContext(conf);
+		JavaSparkContext sc = SparkUtils.getLocalSparkContext(Filter.class);
 
 		filter(sc);
 	}

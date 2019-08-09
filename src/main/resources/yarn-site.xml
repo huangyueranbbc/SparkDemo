@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+<configuration>
+
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>server1</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+    </property>
+    
+    <property>
+        <name>yarn.nodemanager.resource.cpu-vcores</name>
+        <value>8</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.resource.memory-mb</name>
+        <value>16384</value>
+    </property>
+    <property>
+        <name>yarn.scheduler.maximum-allocation-mb</name>
+        <value>16384</value>
+    </property>
+    
+    <property>
+        <name>yarn.resourcemanager.ha.enabled</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.cluster-id</name>
+        <value>hyr2yarn</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.ha.rm-ids</name>
+        <value>rm1,rm2</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.hostname.rm1</name>
+        <value>server1</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.hostname.rm2</name>
+        <value>server2</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.webapp.address.rm1</name>
+        <value>server1:8088</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.webapp.address.rm2</name>
+        <value>server2:8088</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.zk-address</name>
+        <value>server1:2181,server2:2181,server3:2181</value>
+    </property>
+    
+    <property>
+        <description>指定 resourcemanager 的调度器为 Fairshare 调度器</description>
+        <name>yarn.resourcemanager.scheduler.class</name>
+        <value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler</value>
+    </property>
+    <property>
+        <description>如果希望以用户名作为队列，可以将该属性配置为 true，默认为 true，所以如果不想以用户名为队列的，必须显式的设置成 false</description>
+        <name>yarn.scheduler.fair.user-as-default-queue</name>
+        <value>false</value>
+    </property>
+    <property>
+        <description>fair-allocation.xml 文件是对每一个队列的属性配置</description>
+        <name>yarn.scheduler.fair.allocation.file</name>
+        <value>/data/software/hadoop-2.7.6/etc/hadoop/conf/fair-schedule.xml</value>
+    </property>
+    <property>
+        <description>是否可抢占，如果某个队列配置的最小资源量没有达到，用户提交的作业可以
+            抢占别的队列正在运作的任务的资源。建议不要设置成 true，会造成集群资源浪费，并且目
+            前该功能还在进一步完善，默认 false。</description>
+        <name>yarn.scheduler.fair.preemption</name>
+        <value>false</value>
+    </property>
+    <property>
+        <description>以作业的规模大小作为调度的权值，默认为 false</description>
+        <name>yarn.scheduler.fair.sizebasedweight</name>
+        <value>true</value>
+    </property>
+    
+    <property>
+        <name>yarn.application.classpath</name>
+        <value>
+            /data/software/hadoop-2.7.6/etc/*,
+            /data/software/hadoop-2.7.6/etc/hadoop/*,
+            /data/software/hadoop-2.7.6/lib/*,
+            /data/software/hadoop-2.7.6/share/hadoop/common/*,
+            /data/software/hadoop-2.7.6/share/hadoop/common/lib/*,
+            /data/software/hadoop-2.7.6/share/hadoop/mapreduce/*,
+            /data/software/hadoop-2.7.6/share/hadoop/mapreduce/lib/*,
+            /data/software/hadoop-2.7.6/share/hadoop/hdfs/*,
+            /data/software/hadoop-2.7.6/share/hadoop/hdfs/lib/*,
+            /data/software/hadoop-2.7.6/share/hadoop/yarn/*,
+            /data/software/hadoop-2.7.6/share/hadoop/yarn/lib/*,
+            /data/hbase/lib/*
+        </value>
+    </property>
+
+</configuration>

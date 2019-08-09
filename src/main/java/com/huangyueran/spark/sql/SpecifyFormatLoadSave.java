@@ -20,7 +20,7 @@ public class SpecifyFormatLoadSave {
 		DataFrameReader dataFrameReader = sqlContext.read();
 
 		// parquet 是本地数据存储的格式
-		Dataset<Row> dataset = dataFrameReader.format("json").load("data/resources/people.json");
+		Dataset<Row> dataset = dataFrameReader.format("json").load("/data/resources/people.json");
 
 		// 通过关writer写入并保存save
 		DataFrameWriter write = dataset.select("name").write();

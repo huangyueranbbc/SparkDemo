@@ -110,12 +110,12 @@ public class JavaSQLDataSourceExample {
 
   private static void runBasicDataSourceExample(SparkSession spark) {
     // $example on:generic_load_save_functions$
-    Dataset<Row> usersDF = spark.read().load("data/resources/users.parquet");
+    Dataset<Row> usersDF = spark.read().load("/data/resources/users.parquet");
     usersDF.select("name", "favorite_color").write().save("namesAndFavColors.parquet");
     // $example off:generic_load_save_functions$
     // $example on:manual_load_options$
     Dataset<Row> peopleDF =
-      spark.read().format("json").load("data/resources/people.json");
+      spark.read().format("json").load("/data/resources/people.json");
     peopleDF.select("name", "age").write().format("parquet").save("namesAndAges.parquet");
     // $example off:manual_load_options$
     // $example on:direct_sql$
@@ -126,7 +126,7 @@ public class JavaSQLDataSourceExample {
 
   private static void runBasicParquetExample(SparkSession spark) {
     // $example on:basic_parquet_example$
-    Dataset<Row> peopleDF = spark.read().json("data/resources/people.json");
+    Dataset<Row> peopleDF = spark.read().json("/data/resources/people.json");
 
     // DataFrames can be saved as Parquet files, maintaining the schema information
     peopleDF.write().parquet("people.parquet");
@@ -198,7 +198,7 @@ public class JavaSQLDataSourceExample {
     // $example on:json_dataset$
     // A JSON dataset is pointed to by path.
     // The path can be either a single text file or a directory storing text files
-    Dataset<Row> people = spark.read().json("data/resources/people.json");
+    Dataset<Row> people = spark.read().json("/data/resources/people.json");
 
     // The inferred schema can be visualized using the printSchema() method
     people.printSchema();

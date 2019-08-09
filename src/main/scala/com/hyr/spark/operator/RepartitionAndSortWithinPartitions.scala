@@ -2,6 +2,7 @@ package com.hyr.spark.operator
 
 import java.util.Random
 
+import com.hyr.spark.utils.SparkUtils
 import org.apache.spark.{Partitioner, SparkConf, SparkContext}
 
 /** *****************************************************************************
@@ -51,8 +52,7 @@ object RepartitionAndSortWithinPartitions {
   }
 
   def main(args: Array[String]): Unit = {
-    val sparkConf = new SparkConf setAppName "RepartitionAndSortWithinPartitions" setMaster "local"
-    val sparkContext = new SparkContext(sparkConf)
+    val sparkContext = SparkUtils.getLocalSparkContext(RepartitionAndSortWithinPartitions.getClass)
 
     repartitionAndSortWithinPartitions(sparkContext)
   }

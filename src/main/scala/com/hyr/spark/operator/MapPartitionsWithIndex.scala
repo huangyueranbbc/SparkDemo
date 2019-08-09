@@ -1,5 +1,6 @@
 package com.hyr.spark.operator
 
+import com.hyr.spark.utils.SparkUtils
 import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.collection.mutable.ArrayBuffer
@@ -33,8 +34,7 @@ object MapPartitionsWithIndex {
   }
 
   def main(args: Array[String]): Unit = {
-    val sparkConf = new SparkConf setAppName "MapPartitionsWithIndex" setMaster "local"
-    val sparkContext = new SparkContext(sparkConf)
+    val sparkContext = SparkUtils.getLocalSparkContext(MapPartitionsWithIndex.getClass)
 
     mapPartitions(sparkContext)
   }

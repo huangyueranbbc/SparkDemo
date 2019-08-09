@@ -1,14 +1,14 @@
 package com.huangyueran.spark.sharedvariables;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.apache.spark.SparkConf;
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.VoidFunction;
 import org.apache.spark.broadcast.Broadcast;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @category 广播变量
@@ -18,8 +18,7 @@ import org.apache.spark.broadcast.Broadcast;
 public class BroadCastValue {
 
 	public static void main(String[] args) {
-		SparkConf conf = new SparkConf().setAppName("BroadCastValue").setMaster("local");
-		JavaSparkContext sc = new JavaSparkContext(conf);
+		JavaSparkContext sc = SparkUtils.getRemoteSparkContext(BroadCastValue.class);
 
 		final int num = 3;
 		// 创建广播变量

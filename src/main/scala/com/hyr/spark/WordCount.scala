@@ -12,8 +12,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 object WordCount {
   def main(args: Array[String]) {
     var masterUrl = "local"
-    var inputPath = "data/resources/wc_data"
-    var outputPath = "tmp/scala.wc.result"
+    var inputPath = "/data/resources/wc_data"
+    var outputPath = "tmp/scala_wc_result"
 
     if (args.length == 1) masterUrl = args(0) else if (args.length == 3) {
       masterUrl = args(0)

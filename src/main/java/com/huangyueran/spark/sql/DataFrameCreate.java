@@ -21,7 +21,7 @@ public class DataFrameCreate {
 		SQLContext sqlContext = new SQLContext(sc);
 
 		DataFrameReader dataFrameReader = sqlContext.read();
-		Dataset<Row> dataset = dataFrameReader.json("data/resources/people.json");
+		Dataset<Row> dataset = dataFrameReader.json("/data/resources/people.json");
 
 		dataset.show();
 

@@ -1,11 +1,12 @@
 package com.huangyueran.spark.operator;
-import java.util.Arrays;
-import java.util.List;
 
-import org.apache.spark.SparkConf;
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.VoidFunction;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @category 对RDD进行抽样，其中参数withReplacement为true时表示抽样之后还放回，可以被多次抽样，false表示不放回；fraction表示抽样比例；seed为随机数种子，比如当前时间戳
@@ -15,17 +16,7 @@ import org.apache.spark.api.java.function.VoidFunction;
 public class SampleAndTake {
 
 	public static void main(String[] args) {
-		/**
-		 * SparkConf:第一步创建一个SparkConf，在这个对象里面可以设置允许模式Local Standalone yarn
-		 * AppName(可以在Web UI中看到) 还可以设置Spark运行时的资源要求
-		 */
-		SparkConf conf = new SparkConf().setAppName("Sample").setMaster("local");
-
-		/**
-		 * 基于SparkConf的对象可以创建出来一个SparkContext Spark上下文
-		 * SparkContext是通往集群的唯一通道，SparkContext在创建的时候还会创建任务调度器
-		 */
-		JavaSparkContext sc = new JavaSparkContext(conf);
+		JavaSparkContext sc = SparkUtils.getLocalSparkContext(SampleAndTake.class);
 
 		sample(sc);
 	}

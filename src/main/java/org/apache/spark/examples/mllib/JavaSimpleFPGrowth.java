@@ -21,6 +21,7 @@ package org.apache.spark.examples.mllib;
 import java.util.Arrays;
 import java.util.List;
 
+import com.huangyueran.spark.utils.Constant;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 // $example off$
@@ -40,7 +41,7 @@ public class JavaSimpleFPGrowth {
     JavaSparkContext sc = new JavaSparkContext(conf);
 
     // $example on$
-    JavaRDD<String> data = sc.textFile("data/mllib/sample_fpgrowth.txt");
+    JavaRDD<String> data = sc.textFile(Constant.LOCAL_FILE_PREX +"data/mllib/sample_fpgrowth.txt");
 
     JavaRDD<List<String>> transactions = data.map(
       new Function<String, List<String>>() {

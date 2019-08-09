@@ -1,5 +1,6 @@
 package com.hyr.spark.operator
 
+import com.hyr.spark.utils.SparkUtils
 import org.apache.spark.{SparkConf, SparkContext}
 
 /** *****************************************************************************
@@ -19,8 +20,7 @@ object Intersection {
   }
 
   def main(args: Array[String]): Unit = {
-    val sparkConf = new SparkConf setAppName "Intersection" setMaster "local"
-    val sparkContext = new SparkContext(sparkConf)
+    val sparkContext = SparkUtils.getLocalSparkContext(Intersection.getClass)
 
     intersection(sparkContext)
   }

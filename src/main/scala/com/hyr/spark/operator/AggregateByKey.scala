@@ -1,8 +1,10 @@
 package com.hyr.spark.operator
 
+import com.hyr.spark.utils.SparkUtils
 import org.apache.spark.{SparkConf, SparkContext}
 
 /** *****************************************************************************
+  *
   * @date 2019-08-07 15:46
   * @author: <a href=mailto:huangyr>黄跃然</a>
   * @Description:
@@ -14,7 +16,7 @@ import org.apache.spark.{SparkConf, SparkContext}
   *           然后通过调用seqOp函数,把第一个key对应的value添加到这个类型U的变量中。
   *           2.seqOp：这个用于把迭代分区中key对应的值添加到zeroValue创建的U类型实例中。
   *           3.combOp：这个用于合并每个分区中聚合过来的两个U类型的值。
-  * *****************************************************************************/
+  ******************************************************************************/
 object AggregateByKey {
 
 
@@ -29,23 +31,23 @@ object AggregateByKey {
       println("comb:" + sum + "\t" + value)
       sum + value
     }).collect()
-    for(t<-tuples1){
-      println(t._1+"   "+t._2)
+    for (t <- tuples1) {
+      println(t._1 + "   " + t._2)
     }
 
     val tuples2 = rdd.reduceByKey((sum: Int, value: Int) => {
       println("sum:" + sum + "\t" + "value:" + value)
       sum + value
     }).collect()
-    for(t<-tuples2){
-      println(t._1+"   "+t._2)
+    for (t <- tuples2) {
+      println(t._1 + "   " + t._2)
     }
 
   }
 
   def main(args: Array[String]): Unit = {
-    val sparkConf = new SparkConf setAppName "AggregateByKey" setMaster "local"
-    val sparkContext = new SparkContext(sparkConf)
+    val sparkContext = SparkUtils.getLocalSparkContext(AggregateByKey.getClass)
+    // val sparkContext = SparkUtils.getRemoteSparkContext(AggregateByKey.getClass) // 远程模式
 
     aggregateByKey(sparkContext)
   }

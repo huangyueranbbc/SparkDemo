@@ -1,5 +1,6 @@
 package com.hyr.spark.operator
 
+import com.hyr.spark.utils.SparkUtils
 import org.apache.spark.{SparkConf, SparkContext}
 
 /** *****************************************************************************
@@ -34,8 +35,7 @@ object Join {
   }
 
   def main(args: Array[String]): Unit = {
-    val sparkConf = new SparkConf setAppName "Join" setMaster "local"
-    val sparkContext = new SparkContext(sparkConf)
+    val sparkContext = SparkUtils.getLocalSparkContext(Join.getClass)
 
     join(sparkContext)
   }

@@ -22,7 +22,7 @@ public class JSONDataSource {
         SQLContext sqlContext = new SQLContext(sc);
 
         DataFrameReader dataFrameReader = sqlContext.read();
-        Dataset<Row> dataset = dataFrameReader.format("json").load("data/resources/people.json");
+        Dataset<Row> dataset = dataFrameReader.format("json").load("/data/resources/people.json");
         dataset.printSchema();
 
         // 注册一张临时表

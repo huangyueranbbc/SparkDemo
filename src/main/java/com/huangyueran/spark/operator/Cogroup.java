@@ -1,14 +1,13 @@
 package com.huangyueran.spark.operator;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.spark.SparkConf;
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.VoidFunction;
-
 import scala.Tuple2;
 import scala.Tuple3;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @category 对多个RDD中的KV元素，每个RDD中相同key中的元素分别聚合成一个集合。与reduceByKey不同的是针对两个RDD中相同的key的元素进行合并。
@@ -18,17 +17,7 @@ import scala.Tuple3;
 public class Cogroup {
 
 	public static void main(String[] args) {
-		/**
-		 * SparkConf:第一步创建一个SparkConf，在这个对象里面可以设置允许模式Local Standalone yarn
-		 * AppName(可以在Web UI中看到) 还可以设置Spark运行时的资源要求
-		 */
-		SparkConf conf = new SparkConf().setAppName("Cogroup").setMaster("local");
-
-		/**
-		 * 基于SparkConf的对象可以创建出来一个SparkContext Spark上下文
-		 * SparkContext是通往集群的唯一通道，SparkContext在创建的时候还会创建任务调度器
-		 */
-		JavaSparkContext sc = new JavaSparkContext(conf);
+		JavaSparkContext sc = SparkUtils.getLocalSparkContext(Cogroup.class);
 
 		cogroup(sc);
 	}

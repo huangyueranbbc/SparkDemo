@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.huangyueran.spark.utils.Constant;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -27,7 +28,7 @@ public class RDD2DataFrameReflection {
 		JavaSparkContext sc = new JavaSparkContext(conf);
 		SQLContext sqlContext = new SQLContext(sc);
 
-		JavaRDD<String> lineRDD = sc.textFile("data/resources/people.txt");
+		JavaRDD<String> lineRDD = sc.textFile(Constant.LOCAL_FILE_PREX +"/data/resources/people.txt");
 
 		JavaRDD<Row> rowsRDD = lineRDD.map(new Function<String, Row>() {
 

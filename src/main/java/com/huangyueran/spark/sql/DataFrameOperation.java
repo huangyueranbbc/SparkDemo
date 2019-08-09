@@ -19,7 +19,7 @@ public class DataFrameOperation {
 		SQLContext sqlContext = new SQLContext(sc);
 
 		// 将数据源读取为数据框,可以理解为一张表。具有数据和结构信息
-		Dataset<Row> dataset = sqlContext.read().json("data/resources/people.json");
+		Dataset<Row> dataset = sqlContext.read().json("/data/resources/people.json");
 
 		// 格式化的打印这张表
 		dataset.show();

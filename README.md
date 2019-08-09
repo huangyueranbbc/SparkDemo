@@ -27,3 +27,20 @@ Spark operation DEMO
 5. scala-spark
 
 2019-08-06  
+
+## 远程执行模式
+1. mvn package生成jar包。指定jar包文件地址。  
+        conf.setJars(Array[String]("/Users/huangyueran/ideaworkspaces1/myworkspaces/spark/SparkDemo/target/SparkDemo-1.0-SNAPSHOT-jar-with-dependencies.jar"))  
+        
+2. 通过SparkUtils选择运行模式  
+        JavaSparkContext sc = SparkUtils.getLocalSparkContext(TestStorageLevel.class);  
+        JavaSparkContext sc = SparkUtils.getRemoteSparkContext(TestStorageLevel.class);  
+        
+3. 如果需要加载文件，根据运行模式选择文件加载方式。  
+        JavaRDD<String> text = sc.textFile(Constant.LOCAL_FILE_PREX +"/data/resources/test.txt");  
+        JavaRDD<String> text = sc.textFile(/data/resources/test.txt");  
+        
+           
+           
+        
+

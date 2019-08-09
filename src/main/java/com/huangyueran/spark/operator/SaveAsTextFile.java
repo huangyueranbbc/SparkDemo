@@ -1,9 +1,7 @@
 package com.huangyueran.spark.operator;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
-import org.apache.spark.SparkConf;
+import com.huangyueran.spark.utils.Constant;
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -11,8 +9,11 @@ import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.api.java.function.VoidFunction;
-
 import scala.Tuple2;
+
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @category 将RDD转换为文本内容并保存至路径path下，可能有多个文件(和partition数有关)。路径path可以是本地路径或HDFS地址，转换方法是对RDD成员调用toString函数
@@ -21,19 +22,9 @@ import scala.Tuple2;
  */
 public class SaveAsTextFile {
 	public static void main(String[] args) {
-		/**
-		 * SparkConf:第一步创建一个SparkConf，在这个对象里面可以设置允许模式Local Standalone yarn
-		 * AppName(可以在Web UI中看到) 还可以设置Spark运行时的资源要求
-		 */
-		SparkConf conf = new SparkConf().setAppName("WordCount").setMaster("local");
-		
-		/**
-		 * 基于SparkConf的对象可以创建出来一个SparkContext Spark上下文
-		 * SparkContext是通往集群的唯一通道，SparkContext在创建的时候还会创建任务调度器
-		 */
-		JavaSparkContext sc = new JavaSparkContext(conf);
+		JavaSparkContext sc = SparkUtils.getLocalSparkContext(SaveAsTextFile.class);
 
-		JavaRDD<String> text = sc.textFile("data/resources/test.txt");
+		JavaRDD<String> text = sc.textFile(Constant.LOCAL_FILE_PREX +"/data/resources/test.txt");
 		JavaRDD<String> words = text.flatMap(new FlatMapFunction<String, String>() {
 			private static final long serialVersionUID = 1L;
 
@@ -105,7 +96,7 @@ public class SaveAsTextFile {
 		 *   |       Convert RDD to text content and save to path path. There may be multiple files (related to the number of partition).      |                                                                                                                                                                                                                                    | 
 		 *   ==================================================================================
 		 */
-		sorted.saveAsTextFile("wordcount_result"); 
+		sorted.saveAsTextFile(Constant.LOCAL_FILE_PREX +"tmp/wordcount_result");
 
 		sc.close();
 	}
