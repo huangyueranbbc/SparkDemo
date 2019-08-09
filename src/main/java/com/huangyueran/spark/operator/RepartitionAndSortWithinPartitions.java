@@ -37,7 +37,7 @@ public class RepartitionAndSortWithinPartitions {
 		repartitionAndSortWithinPartitions(sc);
 	}
 
-	static void repartitionAndSortWithinPartitions(JavaSparkContext sc) {
+	private static void repartitionAndSortWithinPartitions(JavaSparkContext sc) {
 		List<String> datas = new ArrayList<>();
 		Random random = new Random(1);
 		for (int i = 0; i < 10; i++) {

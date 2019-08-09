@@ -1,6 +1,5 @@
 package com.hyr.spark.operator
 
-import org.apache.spark.api.java.JavaSparkContext
 import org.apache.spark.{SparkConf, SparkContext}
 
 /** *****************************************************************************

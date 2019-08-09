@@ -23,7 +23,7 @@ object FlatMap {
   }
 
   def main(args: Array[String]): Unit = {
-    val sparkConf = new SparkConf setAppName "Filter" setMaster "local"
+    val sparkConf = new SparkConf setAppName "FlatMap" setMaster "local"
     val sparkContext = new SparkContext(sparkConf)
 
     flatMap(sparkContext)

@@ -22,7 +22,7 @@ public class MapPartitions {
 		 * SparkConf:第一步创建一个SparkConf，在这个对象里面可以设置允许模式Local Standalone yarn
 		 * AppName(可以在Web UI中看到) 还可以设置Spark运行时的资源要求
 		 */
-		SparkConf conf = new SparkConf().setAppName("RepartitionAndSortWithinPartitions").setMaster("local");
+		SparkConf conf = new SparkConf().setAppName("MapPartitions").setMaster("local");
 		// SparkConf conf = new SparkConf().setAppName("JoinOperator");
 
 		/**
@@ -34,7 +34,7 @@ public class MapPartitions {
 		mapPartitions(sc);
 	}
 
-	static void mapPartitions(JavaSparkContext sc) {
+	private static void mapPartitions(JavaSparkContext sc) {
 		List<String> names = Arrays.asList("张三1", "李四1", "王五1", "张三2", "李四2", "王五2", "张三3", "李四3", "王五3", "张三4");
 
 		JavaRDD<String> namesRDD = sc.parallelize(names, 3);
