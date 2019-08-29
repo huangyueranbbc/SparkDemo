@@ -1,5 +1,6 @@
 package com.huangyueran.spark.sql;
 
+import com.huangyueran.spark.utils.Constant;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -22,7 +23,7 @@ public class JSONDataSource {
         SQLContext sqlContext = new SQLContext(sc);
 
         DataFrameReader dataFrameReader = sqlContext.read();
-        Dataset<Row> dataset = dataFrameReader.format("json").load("/data/resources/people.json");
+        Dataset<Row> dataset = dataFrameReader.format("json").load(Constant.LOCAL_FILE_PREX +"/data/resources/people.json");
         dataset.printSchema();
 
         // 注册一张临时表
@@ -50,6 +51,7 @@ public class JSONDataSource {
         Dataset<Row> studentDataFrame = sqlContext.read().format("json").json(studentInfosRDD);
         studentDataFrame.registerTempTable("student");
 
+
         Dataset<Row> dataFrame = sqlContext.sql("select * from student");
         dataFrame.javaRDD().foreach(new VoidFunction<Row>() {
             @Override
@@ -58,7 +60,7 @@ public class JSONDataSource {
             }
         });
 
-        dataFrame.write().format("json").mode(SaveMode.Overwrite).save("student");
+        dataFrame.write().format("json").mode(SaveMode.Overwrite).save("tmp/student");
 
         sc.close();
     }

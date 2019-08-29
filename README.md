@@ -29,14 +29,23 @@ Spark operation DEMO
 2019-08-06  
 
 ## 远程执行模式
-1. mvn package生成jar包。指定jar包文件地址。  
+1. 根据需要，将/data目录下的文件上传到hdfs相同的目录下  
+------data  
+------------mllib  
+------------resources  
+
+2. mvn package生成jar包。指定jar包文件地址。  
         conf.setJars(Array[String]("/Users/huangyueran/ideaworkspaces1/myworkspaces/spark/SparkDemo/target/SparkDemo-1.0-SNAPSHOT-jar-with-dependencies.jar"))  
         
-2. 通过SparkUtils选择运行模式  
+3. 通过SparkUtils选择运行模式  
         JavaSparkContext sc = SparkUtils.getLocalSparkContext(TestStorageLevel.class);  
         JavaSparkContext sc = SparkUtils.getRemoteSparkContext(TestStorageLevel.class);  
+4. 使用远程模式,添加集群配置文件到resources目录下  
+        core-site.xml  
+        hdfs-site.xml  
+        yarn-site.xml  
         
-3. 如果需要加载文件，根据运行模式选择文件加载方式。  
+5. 如果需要加载文件，根据运行模式选择文件加载方式。  
         JavaRDD<String> text = sc.textFile(Constant.LOCAL_FILE_PREX +"/data/resources/test.txt");  
         JavaRDD<String> text = sc.textFile(/data/resources/test.txt");  
         

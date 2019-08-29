@@ -2,6 +2,7 @@ package com.hyr.spark
 
 import java.io.File
 
+import com.huangyueran.spark.utils.Constant
 import org.apache.spark.{SparkConf, SparkContext}
 
 /** *****************************************************************************
@@ -12,7 +13,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 object WordCount {
   def main(args: Array[String]) {
     var masterUrl = "local"
-    var inputPath = "/data/resources/wc_data"
+    var inputPath = Constant.LOCAL_FILE_PREX+ "/data/resources/wc_data"
     var outputPath = "tmp/scala_wc_result"
 
     if (args.length == 1) masterUrl = args(0) else if (args.length == 3) {
@@ -24,6 +25,7 @@ object WordCount {
     println(s"masterUrl:$masterUrl, inputPath: $inputPath, outputPath: $outputPath")
     val sparkConf = new SparkConf().setMaster(masterUrl).setAppName("WordCount")
     val sc = new SparkContext(sparkConf)
+
 
     val rowRdd = sc.textFile(inputPath)
     val resultRdd = rowRdd.flatMap(line => line.split("\\s+"))

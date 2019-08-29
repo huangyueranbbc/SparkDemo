@@ -1,6 +1,7 @@
 package com.huangyueran.spark.sql;
 
 import com.huangyueran.spark.utils.Constant;
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -14,16 +15,15 @@ import java.util.List;
 
 /**
  * @author huangyueran
- * @category 通过反射转换RDD和DataFrame
+ * @category 通过反射动态转换RDD和DataFrame
  * @time 2019-7-24 13:58:59
  */
 public class RDD2DataFrameReflectionDynamic {
     public static void main(String[] args) {
-        SparkConf conf = new SparkConf().setAppName("LoadSave").setMaster("local");
-        JavaSparkContext sc = new JavaSparkContext(conf);
+        JavaSparkContext sc = SparkUtils.getLocalSparkContext(RDD2DataFrameReflectionDynamic.class);
         SQLContext sqlContext = new SQLContext(sc);
 
-        JavaRDD<String> lineRDD = sc.textFile(Constant.LOCAL_FILE_PREX +"/data/resources/people.txt");
+        JavaRDD<String> lineRDD = sc.textFile(Constant.LOCAL_FILE_PREX + "/data/resources/people.txt");
 
         JavaRDD<Person> personsRDD = lineRDD.map(new Function<String, Person>() {
 
@@ -42,10 +42,10 @@ public class RDD2DataFrameReflectionDynamic {
         // Spark2.0之后，DataFrame和DataSet合并为更高级的DataSet，新的DataSet具有两个不同的API特性：
         // 1.非强类型(untyped)，DataSet[Row]是泛型对象的集合，它的别名是DataFrame；
         // 2.强类型(strongly-typed)，DataSet[T]是具体对象的集合，如scala和java中定义的类
-        Dataset<Row> peapleDataset = sqlContext.createDataFrame(personsRDD, Person.class);// RDD数据,格式Schem
-        peapleDataset.printSchema();
+        Dataset<Row> personDataset = sqlContext.createDataFrame(personsRDD, Person.class);// RDD数据,格式Schem
+        personDataset.printSchema();
         // 有了DataFrame可以注册一个临时表, 使用SQL语句查询
-        peapleDataset.registerTempTable("people");
+        personDataset.registerTempTable("people");
         Dataset<Row> teenagers = sqlContext.sql("SELECT * FROM people WHERE age >= 13 AND age <= 19");
 
         // 将DataFrame转换为RDD

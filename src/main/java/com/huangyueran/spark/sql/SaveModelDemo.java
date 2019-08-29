@@ -1,5 +1,6 @@
 package com.huangyueran.spark.sql;
 
+import com.huangyueran.spark.utils.Constant;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
@@ -19,12 +20,12 @@ public class SaveModelDemo {
 		// 创建DataFrame 读取json
 		SQLContext sqlContext = new SQLContext(sc);
 
-		Dataset<Row> dataset = sqlContext.read().format("json").load("people.json");
+		Dataset<Row> dataset = sqlContext.read().format("json").load(Constant.LOCAL_FILE_PREX +"/data/resources/people.json");
 
-		dataset.write().mode(SaveMode.ErrorIfExists).save("people2.json"); // 报错退出
-		dataset.write().mode(SaveMode.Append).save("people2.json"); // 追加
-		dataset.write().mode(SaveMode.Ignore).save("people2.json"); // 忽略错误
-		dataset.write().mode(SaveMode.Overwrite).save("people2.json");// 覆盖
+		dataset.write().mode(SaveMode.ErrorIfExists).save("tmp/people2.json"); // 报错退出
+		dataset.write().mode(SaveMode.Append).save("tmp/people2.json"); // 追加
+		dataset.write().mode(SaveMode.Ignore).save("tmp/people2.json"); // 忽略错误
+		dataset.write().mode(SaveMode.Overwrite).save("tmp/people2.json");// 覆盖
 
 		sc.close();
 	}

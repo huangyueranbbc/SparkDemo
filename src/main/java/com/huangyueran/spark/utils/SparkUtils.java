@@ -4,13 +4,14 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
 
 /*******************************************************************************
- *  @date 2019-08-09 14:50
+ * @date 2019-08-09 14:50
  * @author: <a href=mailto:huangyr>黄跃然</a>
  * @Description: Spark工具类
  ******************************************************************************/
 public class SparkUtils {
 
     public static JavaSparkContext getRemoteSparkContext(Class clazz) {
+        System.setProperty("HADOOP_USER_NAME", "root");
         /**
          * SparkConf:第一步创建一个SparkConf，在这个对象里面可以设置允许模式Local Standalone yarn
          * AppName(可以在Web UI中看到) 还可以设置Spark运行时的资源要求

@@ -30,7 +30,7 @@ object SaveAsTextFile {
     },ascending = false)
     sortRDD.foreach(println)
 
-    sortRDD.saveAsTextFile(Constant.LOCAL_FILE_PREX+"tmp/wordcount_result")
+    sortRDD.saveAsTextFile(Constant.LOCAL_FILE_PREX+"/tmp/wordcount_result")
 
 
   }

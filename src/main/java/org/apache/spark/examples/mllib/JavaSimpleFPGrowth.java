@@ -18,30 +18,30 @@
 package org.apache.spark.examples.mllib;
 
 // $example on$
-import java.util.Arrays;
-import java.util.List;
 
 import com.huangyueran.spark.utils.Constant;
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-// $example off$
 import org.apache.spark.api.java.function.Function;
-// $example on$
 import org.apache.spark.mllib.fpm.AssociationRules;
 import org.apache.spark.mllib.fpm.FPGrowth;
 import org.apache.spark.mllib.fpm.FPGrowthModel;
-// $example off$
 
-import org.apache.spark.SparkConf;
+import java.util.Arrays;
+import java.util.List;
+
+// $example off$
+// $example on$
+// $example off$
 
 public class JavaSimpleFPGrowth {
 
   public static void main(String[] args) {
-    SparkConf conf = new SparkConf().setAppName("FP-growth Example");
-    JavaSparkContext sc = new JavaSparkContext(conf);
+    JavaSparkContext sc = SparkUtils.getLocalSparkContext(JavaSimpleFPGrowth.class);
 
     // $example on$
-    JavaRDD<String> data = sc.textFile(Constant.LOCAL_FILE_PREX +"data/mllib/sample_fpgrowth.txt");
+    JavaRDD<String> data = sc.textFile(Constant.LOCAL_FILE_PREX +"/data/mllib/sample_fpgrowth.txt");
 
     JavaRDD<List<String>> transactions = data.map(
       new Function<String, List<String>>() {

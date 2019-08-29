@@ -1,16 +1,13 @@
 package com.huangyueran.spark.sharedvariables;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.Accumulator;
-import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.VoidFunction;
-import org.apache.spark.broadcast.Broadcast;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @category 全局累加器

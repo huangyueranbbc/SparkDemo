@@ -1,5 +1,6 @@
 package com.huangyueran.spark.sql;
 
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.VoidFunction;
@@ -21,12 +22,11 @@ import java.util.Map;
 public class JDBCDataSource {
 	public static void main(String[] args) {
 //		SparkConf conf = new SparkConf().setAppName("JDBCDataSource").setMaster("local");
-		SparkConf conf = new SparkConf().setAppName("JDBCDataSource");
-		JavaSparkContext sc = new JavaSparkContext(conf);
+		JavaSparkContext sc = SparkUtils.getRemoteSparkContext(JDBCDataSource.class);
 		SQLContext sqlContext = new SQLContext(sc);
 
 		Map<String, String> options = new HashMap<String, String>();
-		options.put("url", "jdbc:mysql://192.168.68.1:3306/tourismdb");
+		options.put("url", "jdbc:mysql://192.168.2.129:3306/hive");
 		options.put("dbtable", "t_user");
 		options.put("user", "root");
 		options.put("password", "666666");
@@ -44,7 +44,8 @@ public class JDBCDataSource {
 				System.out.println(row);
 			}
 		});
-		
+
+
 		// 将RDD数据存储到MYSQL中
 		saveToMysql( sqlContext, options);
 

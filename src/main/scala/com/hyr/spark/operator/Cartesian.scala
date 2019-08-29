@@ -28,7 +28,7 @@ object Cartesian {
   }
 
   def main(args: Array[String]): Unit = {
-    val sparkContext = SparkUtils.getLocalSparkContext(Cartesian.getClass)
+    val sparkContext = SparkUtils.getRemoteSparkContext(Cartesian.getClass)
 
     cartesian(sparkContext)
   }

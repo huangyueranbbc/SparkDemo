@@ -1,5 +1,6 @@
 package com.hyr.spark.utils
 
+import com.huangyueran.spark.utils.Constant
 import org.apache.spark.{SparkConf, SparkContext}
 
 /** *****************************************************************************
@@ -10,11 +11,12 @@ import org.apache.spark.{SparkConf, SparkContext}
 object SparkUtils {
 
   def getRemoteSparkContext(clazz: Class[_]): SparkContext = {
+    System.setProperty("HADOOP_USER_NAME", "root")
     /**
       * SparkConf:第一步创建一个SparkConf，在这个对象里面可以设置允许模式Local Standalone yarn
       * AppName(可以在Web UI中看到) 还可以设置Spark运行时的资源要求
       */
-    val conf = new SparkConf setAppName clazz.getName setMaster "spark://192.168.1.128:7077" set("deploy-mode", "client")
+    val conf = new SparkConf setAppName clazz.getName setMaster Constant.SPARK_REMOTE_SERVER_ADDRESS set("deploy-mode", "client")
     conf.setJars(Array[String]("/Users/huangyueran/ideaworkspaces1/myworkspaces/spark/SparkDemo/target/SparkDemo-1.0-SNAPSHOT-jar-with-dependencies.jar"))
     conf.setIfMissing("spark.driver.host", "192.168.1.1")
 

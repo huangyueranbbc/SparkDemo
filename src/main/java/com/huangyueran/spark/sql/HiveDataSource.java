@@ -1,5 +1,6 @@
 package com.huangyueran.spark.sql;
 
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
@@ -28,10 +29,9 @@ public class HiveDataSource {
 		 * ./bin/spark-submit --master yarn-client --class com.huangyueran.spark.sql.HiveDataSource /root/spark_hive_datasource.jar 
 		 */
 		
-		SparkConf conf = new SparkConf().setAppName("HiveDataSource");
-		JavaSparkContext sc = new JavaSparkContext(conf);
+		JavaSparkContext sc = SparkUtils.getRemoteSparkContext(HiveDataSource.class);
 
-        // 创建HiveContext，注意，这里，它接收的是SparkContext作为参数，不是JavaSparkContext，其实也可以使用JavaSparkContext，只不过内部也是做了sc.sc()的操作
+		// 创建HiveContext，注意，这里，它接收的是SparkContext作为参数，不是JavaSparkContext，其实也可以使用JavaSparkContext，只不过内部也是做了sc.sc()的操作
         // HiveContext hiveContext = new HiveContext(sc.sc()); // 已过时 官方建议使用SparkSession
 		SparkSession sparkSession = new SparkSession(sc.sc());
 		Dataset<Row> person = sparkSession.sql("select * from psn1");

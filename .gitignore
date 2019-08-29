@@ -14,3 +14,6 @@ build
 .checkpoint*
 checkpoint*
 tmp
+core-site*
+hdfs-site*
+yarn-site*

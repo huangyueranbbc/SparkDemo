@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.huangyueran.spark.utils.Constant;
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -24,8 +25,8 @@ import org.apache.spark.sql.types.StructType;
  */
 public class RDD2DataFrameReflection {
 	public static void main(String[] args) {
-		SparkConf conf = new SparkConf().setAppName("LoadSave").setMaster("local");
-		JavaSparkContext sc = new JavaSparkContext(conf);
+		JavaSparkContext sc = SparkUtils.getLocalSparkContext(RDD2DataFrameReflection.class);
+
 		SQLContext sqlContext = new SQLContext(sc);
 
 		JavaRDD<String> lineRDD = sc.textFile(Constant.LOCAL_FILE_PREX +"/data/resources/people.txt");
