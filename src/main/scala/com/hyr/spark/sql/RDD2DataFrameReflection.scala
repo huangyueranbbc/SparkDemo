@@ -5,6 +5,7 @@ import java.util.{ArrayList, List}
 
 import com.huangyueran.spark.utils.Constant
 import com.hyr.spark.utils.SparkUtils
+import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.sql.types.{DataTypes, StructField, StructType}
 import org.apache.spark.sql.{RowFactory, SparkSession}
 
@@ -16,11 +17,12 @@ import org.apache.spark.sql.{RowFactory, SparkSession}
 object RDD2DataFrameReflection {
 
   def main(args: Array[String]): Unit = {
-    val sparkContext = SparkUtils.getLocalSparkContext(RDD2DataFrameReflection.getClass)
+    val sparkContext = SparkUtils.getRemoteSparkContext(RDD2DataFrameReflection.getClass)
 
-    val sparkSession = SparkSession.builder().appName("RDD2DataFrameReflection").getOrCreate()
+    val sparkSession = SparkSession.builder().appName("RDD2DataFrameReflection").enableHiveSupport.getOrCreate()
 
-    val lineRDD = sparkContext.textFile(Constant.LOCAL_FILE_PREX + "/data/resources/people.txt")
+    // val lineRDD = sparkContext.textFile(Constant.LOCAL_FILE_PREX + "/data/resources/people.txt")
+    val lineRDD = sparkContext.textFile("/data/resources/people.txt")
     val rowsRDD = lineRDD.map(line => {
       val str = line.split(",")
       RowFactory.create(str(0), Integer.valueOf(str(1)))

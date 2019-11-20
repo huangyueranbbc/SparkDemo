@@ -12,12 +12,12 @@ import org.apache.spark.sql.{SaveMode, SparkSession}
 object JSONDataSource {
 
   def main(args: Array[String]): Unit = {
-    val sparkContext = SparkUtils.getRemoteSparkContext(JSONDataSource.getClass)
+    val sparkContext = SparkUtils.getLocalSparkContext(JSONDataSource.getClass)
 
-    val sparkSession = SparkSession.builder().appName("JSONDataSource").getOrCreate();
+    val sparkSession = SparkSession.builder().appName("JSONDataSource").getOrCreate()
     val dataFrameReader = sparkSession.read
-    val dataset = dataFrameReader.json("/data/resources/people.json")
-    // val dataset = dataFrameReader.json(Constant.LOCAL_FILE_PREX + "/data/resources/people.json")
+//    val dataset = dataFrameReader.json("/data/resources/people.json")
+    val dataset = dataFrameReader.json(Constant.LOCAL_FILE_PREX + "/data/resources/people.json")
     dataset.printSchema
 
     // 注册

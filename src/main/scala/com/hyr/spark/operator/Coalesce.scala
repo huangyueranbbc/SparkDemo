@@ -13,10 +13,13 @@ object Coalesce {
 
   def coalesce(sparkContext: SparkContext): Unit = {
     val datas = List("hi", "hello", "how", "are", "you")
-    val rdd4 = sparkContext.parallelize(datas, 4)
-    println("rdd partitions num:" + rdd4.getNumPartitions)
-    val rdd2 = rdd4.coalesce(2, shuffle = false)
+    val rdd1 = sparkContext.parallelize(datas, 4)
+    println("rdd partitions num:" + rdd1.getNumPartitions)
+    val rdd2 = rdd1.coalesce(2, shuffle = false)
     println("rdd partitions num:" + rdd2.getNumPartitions)
+    val rdd3 = rdd1.repartition(100)
+    println("rdd partitions num:" + rdd3.getNumPartitions)
+
   }
 
   def main(args: Array[String]): Unit = {

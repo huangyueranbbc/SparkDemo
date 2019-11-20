@@ -20,6 +20,8 @@ package com.huangyueran.spark.streaming;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import com.huangyueran.spark.utils.Constant;
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.Optional;
 import org.apache.spark.api.java.function.FlatMapFunction;
@@ -51,16 +53,22 @@ public final class JavaKafkaDirectUpdateStateWordCount {
      * @category updateState更新状态
      */
     public static void main(String[] args) {
+        System.setProperty("HADOOP_USER_NAME", "root");
         StreamingExamples.setStreamingLogLevels();
-        SparkConf sparkConf = new SparkConf().setAppName("JavaKafkaDirectWordCount").setMaster("local[1]");
-        JavaStreamingContext jssc = new JavaStreamingContext(sparkConf, Durations.seconds(6));
+        // SparkConf sparkConf = new SparkConf().setAppName("JavaKafkaDirectWordCount").setMaster("local[1]");
+        SparkConf sparkConf = new SparkConf().setAppName("JavaKafkaDirectWordCount");
+        sparkConf.setMaster(Constant.SPARK_REMOTE_SERVER_ADDRESS);
+        sparkConf.set("deploy-mode", "client");
+        sparkConf.setJars(new String[]{"/Users/huangyueran/ideaworkspaces1/myworkspaces/spark/SparkDemo/target/SparkDemo-1.0-SNAPSHOT-jar-with-dependencies.jar"});
+        sparkConf.setIfMissing("spark.driver.host", "192.168.1.1"); // Driver地址 提交机器IP地址
+        JavaStreamingContext jssc = new JavaStreamingContext(sparkConf, Durations.seconds(3));
 
         jssc.checkpoint("."); // UpdateState必须进行checkpoint
 
         Map<String, String> kafkaParams = new HashMap<String, String>(); // key是topic名称,value是线程数量
-        kafkaParams.put("metadata.broker.list", "master:9092,slave1:9092,slave2:9092"); // 指定broker在哪
+        kafkaParams.put("metadata.broker.list", "master:9092"); // 指定broker在哪
         HashSet<String> topicsSet = new HashSet<String>();
-        topicsSet.add("2017-7-26"); // 指定操作的topic
+        topicsSet.add("spark-kafka-test"); // 指定操作的topic
 
         // Create direct kafka stream with brokers and topics
         JavaPairInputDStream<String, String> messages = KafkaUtils.createDirectStream(

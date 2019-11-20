@@ -17,6 +17,8 @@
 
 package com.huangyueran.spark.streaming;
 
+import com.huangyueran.spark.utils.Constant;
+import com.huangyueran.spark.utils.SparkUtils;
 import org.apache.spark.api.java.Optional;
 import com.google.common.collect.Lists;
 import org.apache.spark.SparkConf;
@@ -45,9 +47,10 @@ public final class UpdateStateWordCount {
 
     public static void main(String[] args) {
         StreamingExamples.setStreamingLogLevels();
+        System.setProperty("HADOOP_USER_NAME", "root");
 
         // Create the context with a 1 second batch size
-        SparkConf sparkConf = new SparkConf().setAppName("UpdateStateWordCount").setMaster("local[2]");
+        SparkConf sparkConf = SparkUtils.getRemoteSparkConf(UpdateStateWordCount.class);
         /*
          * 创建该对象类似于spark core中的JavaSparkContext
          * 该对象除了接受SparkConf对象，还接收了一个BatchInterval参数,就算说，
@@ -61,7 +64,7 @@ public final class UpdateStateWordCount {
          * 首先创建输入DStream，代表一个数据比如这里从socket或KafKa来持续不断的进入实时数据流
          * 创建一个监听Socket数据量，RDD里面的每一个元素就是一行行的文本
          */
-        JavaReceiverInputDStream<String> lines = ssc.socketTextStream("192.168.68.129", 9999,
+        JavaReceiverInputDStream<String> lines = ssc.socketTextStream("192.168.2.1", 9999,
                 StorageLevels.MEMORY_AND_DISK_SER);
 
 
