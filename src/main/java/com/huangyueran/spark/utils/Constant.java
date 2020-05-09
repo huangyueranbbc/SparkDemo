@@ -11,6 +11,6 @@ public class Constant {
 
     public static final String LOCAL_FILE_PREX = "file:///" + new File(".").getAbsolutePath();
 
-    public static final String SPARK_REMOTE_SERVER_ADDRESS = "spark://192.168.2.128:7077";
+    public static final String SPARK_REMOTE_SERVER_ADDRESS = "spark://192.168.1.128:7077";
 
 }

@@ -17,8 +17,14 @@ object DataFrameCreate {
     val sparkSession = SparkSession.builder().appName("DataFrameCreate").getOrCreate()
     val dataFrameReader = sparkSession.read
     val dataset = dataFrameReader.json(Constant.LOCAL_FILE_PREX + "/data/resources/people.json")
-
     dataset.show
+
+    val people: Unit = dataset.createOrReplaceTempView("people")
+    val frame = sparkSession.sql("show tables")
+    frame.show
+    val peoplesData = sparkSession sql "select * from people where age = 30"
+    peoplesData.show
+
 
   }
 

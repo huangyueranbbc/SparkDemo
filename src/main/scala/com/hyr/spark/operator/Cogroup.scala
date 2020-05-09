@@ -29,7 +29,7 @@ object Cogroup {
   }
 
   def main(args: Array[String]): Unit = {
-    val sparkContext = SparkUtils.getLocalSparkContext(Cogroup.getClass)
+    val sparkContext = SparkUtils.getRemoteSparkContext(Cogroup.getClass)
     cogroup(sparkContext)
   }
 

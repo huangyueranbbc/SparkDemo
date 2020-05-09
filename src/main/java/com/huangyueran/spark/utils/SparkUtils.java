@@ -17,6 +17,7 @@ public class SparkUtils {
          * AppName(可以在Web UI中看到) 还可以设置Spark运行时的资源要求
          */
         SparkConf conf = getRemoteSparkConf(clazz);
+        conf.setJars(new String[]{"target/SparkDemo-1.0-SNAPSHOT-jar-with-dependencies.jar"});
         /**
          * 基于SparkConf的对象可以创建出来一个SparkContext Spark上下文
          * SparkContext是通往集群的唯一通道，SparkContext在创建的时候还会创建任务调度器
@@ -43,8 +44,6 @@ public class SparkUtils {
         SparkConf conf = new SparkConf().setAppName(clazz.getName());
         conf.setMaster(Constant.SPARK_REMOTE_SERVER_ADDRESS);
         conf.set("deploy-mode", "client");
-        conf.setJars(new String[]{"/Users/huangyueran/ideaworkspaces1/myworkspaces/spark/SparkDemo/target/SparkDemo-1.0-SNAPSHOT-jar-with-dependencies.jar"});
-        conf.setIfMissing("spark.driver.host", "192.168.1.1"); // Driver地址 提交机器IP地址
         return conf;
     }
 

@@ -10,19 +10,21 @@ import org.apache.spark.sql.types.{DataTypes, StructField, StructType}
 import org.apache.spark.sql.{RowFactory, SparkSession}
 
 /** *****************************************************************************
+  *
   * @date 2019-08-29 15:33
   * @author: <a href=mailto:huangyr>黄跃然</a>
   * @Description:
-  ******************************************************************************/
+  * *****************************************************************************/
 object RDD2DataFrameReflection {
 
   def main(args: Array[String]): Unit = {
-    val sparkContext = SparkUtils.getRemoteSparkContext(RDD2DataFrameReflection.getClass)
+    val sparkContext = SparkUtils.getLocalSparkContext(RDD2DataFrameReflection.getClass)
 
-    val sparkSession = SparkSession.builder().appName("RDD2DataFrameReflection").enableHiveSupport.getOrCreate()
+    //val sparkSession = SparkSession.builder().appName("RDD2DataFrameReflection").enableHiveSupport.getOrCreate()
+    val sparkSession = SparkSession.builder().appName("RDD2DataFrameReflection").getOrCreate()
 
-    // val lineRDD = sparkContext.textFile(Constant.LOCAL_FILE_PREX + "/data/resources/people.txt")
-    val lineRDD = sparkContext.textFile("/data/resources/people.txt")
+    val lineRDD = sparkContext.textFile(Constant.LOCAL_FILE_PREX + "/data/resources/people.txt")
+    //val lineRDD = sparkContext.textFile("/data/resources/people.txt")
     val rowsRDD = lineRDD.map(line => {
       val str = line.split(",")
       RowFactory.create(str(0), Integer.valueOf(str(1)))
@@ -40,16 +42,18 @@ object RDD2DataFrameReflection {
 
     // 根据表数据和元数据schema创建临时表
     val dataSet = sparkSession.createDataFrame(rowsRDD, schema)
-    dataSet.createTempView("person")
+    dataSet.createOrReplaceTempView("person")
 
     // 通过sql查询
     val persons = sparkSession.sql("select * from person")
+    persons.show
     val rows = persons.collect()
 
     for (s <- rows) {
       println(s)
     }
 
+    sparkContext.stop
 
   }
 

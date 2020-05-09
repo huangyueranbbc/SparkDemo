@@ -16,9 +16,13 @@ object SparkUtils {
       * SparkConf:第一步创建一个SparkConf，在这个对象里面可以设置允许模式Local Standalone yarn
       * AppName(可以在Web UI中看到) 还可以设置Spark运行时的资源要求
       */
-    val conf = new SparkConf setAppName clazz.getName setMaster Constant.SPARK_REMOTE_SERVER_ADDRESS set("deploy-mode", "client")
-    conf.setJars(Array[String]("/Users/huangyueran/ideaworkspaces1/myworkspaces/spark/SparkDemo/target/SparkDemo-1.0-SNAPSHOT-jar-with-dependencies.jar"))
-    conf.setIfMissing("spark.driver.host", "192.168.1.1")
+    val conf = new SparkConf setAppName clazz.getName setMaster Constant.SPARK_REMOTE_SERVER_ADDRESS
+
+    // 设置catelog类型 支持hive和in memory。围绕数据库、表和函数三种实体，提供创建、检索、缓存数据和删除的功能。
+    conf.set("spark.sql.catalogImplementation","hive")
+
+    //conf.setJars(Array[String]("/Users/huangyueran/ideaworkspaces1/myworkspaces/spark/SparkDemo/target/SparkDemo-1.0-SNAPSHOT-jar-with-dependencies.jar"))
+    //conf.setIfMissing("spark.driver.host", "192.168.1.128")
 
     /**
       * 基于SparkConf的对象可以创建出来一个SparkContext Spark上下文
@@ -46,8 +50,8 @@ object SparkUtils {
     val conf = new SparkConf().setAppName(clazz.getName)
     conf.setMaster(Constant.SPARK_REMOTE_SERVER_ADDRESS)
     conf.set("deploy-mode", "client")
-    conf.setJars(Array[String]("/Users/huangyueran/ideaworkspaces1/myworkspaces/spark/SparkDemo/target/SparkDemo-1.0-SNAPSHOT-jar-with-dependencies.jar"))
-    conf.setIfMissing("spark.driver.host", "192.168.1.1") // Driver地址 提交机器IP地址
+    //conf.setJars(Array[String]("/Users/huangyueran/ideaworkspaces1/myworkspaces/spark/SparkDemo/target/SparkDemo-1.0-SNAPSHOT-jar-with-dependencies.jar"))
+    conf.setIfMissing("spark.driver.host", "192.168.1.128") // Driver地址 提交机器IP地址
 
     conf
   }

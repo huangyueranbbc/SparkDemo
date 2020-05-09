@@ -12,11 +12,11 @@ import org.apache.spark.sql.SparkSession
 object SpecifyFormatLoadSave {
 
   def main(args: Array[String]): Unit = {
-    val sparkContext = SparkUtils.getLocalSparkContext(SpecifyFormatLoadSave.getClass)
+    val sparkContext = SparkUtils.getRemoteSparkContext(SpecifyFormatLoadSave.getClass)
     val sparkSession = SparkSession.builder().appName("SpecifyFormatLoadSave").getOrCreate()
 
     val dataFrameReader = sparkSession.read
-    val dataset = dataFrameReader.format("json").load( Constant.LOCAL_FILE_PREX+"/data/resources/people.json")
+    val dataset = dataFrameReader.format("json").load( "/data/resources/people.json")
 
     // 通过关writer写入并保存save
     val write = dataset.select("name").write

@@ -29,12 +29,11 @@ public class HiveDataSource {
 		 * ./bin/spark-submit --master yarn-client --class com.huangyueran.spark.sql.HiveDataSource /root/spark_hive_datasource.jar 
 		 */
 		
-		JavaSparkContext sc = SparkUtils.getLocalSparkContext(HiveDataSource.class);
-
+		JavaSparkContext sc = SparkUtils.getRemoteSparkContext(HiveDataSource.class);
 		// 创建HiveContext，注意，这里，它接收的是SparkContext作为参数，不是JavaSparkContext，其实也可以使用JavaSparkContext，只不过内部也是做了sc.sc()的操作
         // HiveContext hiveContext = new HiveContext(sc.sc()); // 已过时 官方建议使用SparkSession
 		SparkSession sparkSession = new SparkSession(sc.sc());
-		Dataset<Row> person = sparkSession.sql("select * from weibo.weibo_user");
+		Dataset<Row> person = sparkSession.sql("show databases");
         person.show();
         
         List<Row> list = person.javaRDD().collect();

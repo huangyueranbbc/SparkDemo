@@ -13,7 +13,12 @@ object HiveDataSource {
   def main(args: Array[String]): Unit = {
     val sparkContext = SparkUtils.getRemoteSparkContext(HiveDataSource.getClass)
 
-    val sparkSession = SparkSession.builder().appName("HiveDataSource").getOrCreate()
+    val sparkSession = SparkSession.builder().appName("HiveDataSource")
+      .enableHiveSupport()
+      .config("hive.metastore.uris", "thrift://server1:18888")
+      //指定hive的warehouse目录
+      .config("spark.sql.warehouse.dir", "hdfs://server1:8020/user/hive/warehouse")
+      .getOrCreate()
 
     val dataset = sparkSession.sql("show databases")
     dataset.show()

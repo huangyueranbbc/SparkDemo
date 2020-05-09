@@ -1,5 +1,6 @@
 package com.hyr.spark.sql
 
+import com.huangyueran.spark.utils.Constant
 import com.hyr.spark.utils.SparkUtils
 import org.apache.spark.sql.SparkSession
 
@@ -11,17 +12,17 @@ import org.apache.spark.sql.SparkSession
 object LoadSave {
 
   def main(args: Array[String]): Unit = {
-    val sparkContext = SparkUtils.getRemoteSparkContext (LoadSave.getClass)
+    val sparkContext = SparkUtils.getLocalSparkContext(LoadSave.getClass)
 
     val sparkSession = SparkSession.builder().appName("LoadSave").getOrCreate()
 
-    val dataSet = sparkSession.read.load("/data/resources/users.parquet")
+    val dataSet = sparkSession.read.load(Constant.LOCAL_FILE_PREX+"/data/resources/users.parquet")
     dataSet.printSchema
     dataSet.show
 
     val write = dataSet.select("name", "favorite_color", "favorite_numbers").write
     // 通过关writer写入并保存save
-    write.save("tmp/namesAndColors.parquet")
+    write.save(Constant.LOCAL_FILE_PREX+"tmp/namesAndColors.parquet")
 
 
 
